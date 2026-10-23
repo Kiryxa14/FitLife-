@@ -1,8 +1,13 @@
+WATER_ML_PER_KG = 30
 print("Приветствуем вас в FitLife!")
 print("Здесь позаботяться о вашем здоровье!")
 user_name = input("Пожалуйста, введите ваше имя: ")
 print(f"Рады видеть вас, {user_name}!")
-user_age = int(input("Пожалуйста, введите ваш возраст: "))
+try:
+    user_age = int(input("Пожалуйста, введите ваш возраст: "))
+except ValueError:
+    print("Ошибка! Возраст нужно вводить числом. Попробуйте снова.")
+    raise SystemExit
 print(
     f"Приятно познакомиться,{user_name}!"
     f"Вам {user_age} года",
@@ -11,15 +16,29 @@ print(
     "Давайте рассчитаем ваш индекс массы тела (BMI) и норму воды. "
     "Это нужно для того, чтобы оценить ваше здоровье",
 )
-user_weight = float(
-    input("Пожалуйста, введите ваш вес в килограммах (например 70): ")
-)
-user_height = float(
-    input("Пожалуйста, введите ваш рост в метрах (например 1.75): ")
-)
+try:
+    user_weight = float(
+        input("Пожалуйста, введите ваш вес в килограммах (например 70): ")
+    )
+except ValueError:
+    print("Ошибка! Вес нужно вводить числом. Попробуйте снова.")
+    raise SystemExit
+if user_weight <= 0:
+    print("Ошибка! Вес должен быть положительным числом. Попробуйте снова.")
+    raise SystemExit
+try:
+    user_height = float(
+        input("Пожалуйста, введите ваш рост в метрах (например 1.75): ")
+    )
+except ValueError:
+    print("Ошибка! Рост нужно вводить числом. Попробуйте снова.")
+    raise SystemExit
+if user_height <= 0:
+    print("Ошибка! Рост должен быть положительным числом. Попробуйте снова.")
+    raise SystemExit
 bmi = user_weight / (user_height ** 2)
 bmi = round(bmi, 1)
-water_ml = user_weight * 30
+water_ml = user_weight * WATER_ML_PER_KG
 water_l = water_ml / 1000
 water_l = round(water_l, 1)
 print(
